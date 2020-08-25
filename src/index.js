@@ -1,64 +1,60 @@
+const fs = require('fs')
 const Discord = require('discord.js')
-const config = require('../config/config.json')
+const { prefix, token } = require('../config/config.json')
+const color = require('./colors')
 
+const client = new Discord.Client()
+client.commands = new Discord.Collection()
 
-const PREFIX = config.prefix;
+const commands = fs
+  .readdirSync('src/commands')
+  .filter(file => file.endsWith('js'))
 
-// ANSI colors
-const fgRed = "\x1b[31m%s\x1b[0m";
-const fgYellow = "\x1b[33m%s\x1b[0m"
-const fgBlue = "\x1b[34m%s\x1b[0m"
-const fgMagenta = "\x1b[35m%s\x1b[0m"
-const fgCyan = "\x1b[36m%s\x1b[0m"
+for (const file of commands) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
 
+const PREFIX = prefix;
 
-const client = new Discord.Client();
 
 client.once('ready', () => {
-  console.log(fgMagenta, `\nLogged in as ${client.user.tag}!`)
+  console.log(color.fgMagenta, `\nLogged in as ${client.user.tag}!`);
   client.user.setPresence({ activity: { name: 'Hello' }, status: 'online' })
-    .then(console.log(fgBlue, "Bot ready for action\n"))
+    .then(console.log(color.fgBlue, "Bot ready for action\n"))
     .catch((err) => `An error occured when trying to update bot presence, ${err}`)
 })
 
 
 client.on('message', (m) => {
-  if (m.author.bot) return;
+  if (m.author.bot) return
 
   if (!m.author.bot && !m.content.startsWith(PREFIX)) {
-    console.log(fgCyan, `User [${m.author.tag}] sent message: ${m.content}`)
+    console.log(color.fgCyan, `User [${m.author.tag}] sent message: ${m.content}`)
   } else if (!m.author.bot && m.content.startsWith(PREFIX)) {
     let date = new Date()
-    console.log(fgYellow, `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: User [${m.author.tag}] called command: ${m.content.trim()}`)
+    console.log(color.fgYellow, `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: User [${m.author.tag}] called command: ${m.content.trim()}`)
   }
 
-  if (m.content.startsWith(PREFIX)) {
-    const [CMD, ...args] = m.content
-      .trim()
-      .substring(PREFIX.length)
-      .split(/\s+/)
-      .catch((err) => console.log(`Error when handling or parsing command, ${err}`))
+  const args = m.content.slice(prefix.length).trim().split(/ +/);
+  const command = args.shift().toLowerCase();
 
-    switch (CMD) {
-      case "server":
-        m.channel
-          .send(`Server name: ${m.guild.name}\nTotal members: ${m.guild.memberCount}\nCurrent owner: ${m.guild.owner}`)
-          .catch((err) => console.log(fgRed, `Error when calling command, ${err}`))
-          .then(console.log(fgYellow, "Command &server completed successfully"))
-        break
-      case "user-info":
-        m.channel
-          .send(`Your username: ${m.author.toString()}`)
-          .catch((err) => console.log(fgRed, `Error when calling command, ${err}`))
-          .then(console.log(fgYellow, "Command &user-info completed successfully"))
-        break
-      default:
-        m.channel
-          .catch((err) => console.log(fgRed, `Error when calling command, ${err}`))
-          .send("Not a valid command!")
-        break
-    }
+  if (!client.commands.has(command)) return
+
+  try {
+    client.commands.get(command).execute(m, args);
+  } catch (error) {
+    console.error(error);
+    m.reply("There was an error trying to execute that command!");
   }
+
+
+
+        // m.channel
+        //   .send(`Server name: ${m.guild.name}\nTotal members: ${m.guild.memberCount}\nCurrent owner: ${m.guild.owner}`)
+        //   .catch((err) => console.log(fgRed, `Error when calling command, ${err}`))
+        //   .then(console.log(fgYellow, "Command &server completed successfully"))
+        // break
 })
 
-client.login(config.token)
+client.login(token)
