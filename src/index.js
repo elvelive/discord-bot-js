@@ -14,21 +14,17 @@ const fgCyan = "\x1b[36m%s\x1b[36m"
 
 // Init
 client.once('ready', () => {
-  console.log(fgMagenta, `\nLogged in as ${client.user.tag}!`)
+  console.log(fgMagenta, `\nLogged in as ${client.user.tag}!\n`)
 })
 
 client.on('message', (m) => {
   if (m.author.bot) return;
 
   if (!m.author.bot && !m.content.startsWith(PREFIX)) {
-      console.log(
-        fgCyan,
-        `User [${m.author.tag}] sent m: ${m.content}`)
+      console.log(fgCyan, `User [${m.author.tag}] sent message: ${m.content}`)
   } else if (!m.author.bot && m.content.startsWith(PREFIX)) {
     let date = new Date()
-    console.log(
-      fgYellow,
-      `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: User [${m.author.tag}] called command: ${m.content.trim()}`
+    console.log(fgYellow, `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: User [${m.author.tag}] called command: ${m.content.trim()}`
     )
   }
 
@@ -37,7 +33,6 @@ client.on('message', (m) => {
       .trim()
       .substring(PREFIX.length)
       .split(/\s+/)
-
 
     switch (CMD) {
       case "server":
