@@ -7,6 +7,7 @@ const client = new Discord.Client()
 const PREFIX = "&";
 
 // Colors
+const fgRed = "\x1b[31m%s\x1b[31m";
 const fgYellow = "\x1b[33m%s\x1b[33m"
 const fgMagenta = "\x1b[35m%s\x1b[35m"
 const fgCyan = "\x1b[36m%s\x1b[36m"
@@ -38,15 +39,19 @@ client.on('message', (m) => {
       case "server":
         m.channel
           .send(`Server name: ${m.guild.name}\nTotal members: ${m.guild.memberCount}\nCurrent owner: ${m.guild.owner}`)
+          .catch((err) => console.log(fgRed,`Error when calling command, ${err}`))
           .then(console.log(fgYellow, "Command &server completed successfully"))
         break;
       case "user-info":
         m.channel
           .send(`Your username: ${m.author.toString()}`)
+          .catch((err) => console.log(fgRed,`Error when calling command, ${err}`))
           .then(console.log(fgYellow, "Command &user-info completed successfully"))
         break;
       default:
-        m.channel.send("Not a valid command!")
+        m.channel
+          .catch((err) => console.log(fgRed,`Error when calling command, ${err}`))
+          .send("Not a valid command!")
     }
   }
 })
