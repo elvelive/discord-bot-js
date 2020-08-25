@@ -7,14 +7,21 @@ const client = new Discord.Client()
 
 const PREFIX = "&";
 
-const fgRed = "\x1b[31m%s\x1b[31m";
-const fgYellow = "\x1b[33m%s\x1b[33m"
-const fgMagenta = "\x1b[35m%s\x1b[35m"
-const fgCyan = "\x1b[36m%s\x1b[36m"
+const fgRed = "\x1b[31m%s\x1b[0m";
+const fgYellow = "\x1b[33m%s\x1b[0m"
+const fgMagenta = "\x1b[35m%s\x1b[0m"
+const fgCyan = "\x1b[36m%s\x1b[0m"
 
 
 client.once('ready', () => {
   console.log(fgMagenta, `\nLogged in as ${client.user.tag}!\n`)
+  client.user.setStatus('online')
+  client.user.setPresence({
+    game: {
+      name: 'with depression',
+      type: "STREAMING"
+    }
+  })
 })
 
 client.on('message', (m) => {
