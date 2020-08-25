@@ -17,22 +17,23 @@ client.once('ready', () => {
   console.log(fgMagenta, `\nLogged in as ${client.user.tag}!`)
 })
 
+client.on('message', (m) => {
+  if (m.author.bot) return;
 
-client.on('message', (message) => {
-  if (message.author.bot) return;
-  if (!message.author.bot && !message.content.startsWith(PREFIX)) {
+  if (!m.author.bot && !m.content.startsWith(PREFIX)) {
       console.log(
         fgCyan,
-        `\nUser [${message.author.tag}] sent message: ${message.content}`)
-  } else if (!message.author.bot && message.content.startsWith(PREFIX)) {
+        `User [${m.author.tag}] sent m: ${m.content}`)
+  } else if (!m.author.bot && m.content.startsWith(PREFIX)) {
+    let date = new Date()
     console.log(
       fgYellow,
-      `\nUser [${message.author.tag}] called command: ${message.content.trim()}`
-    );
+      `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: User [${m.author.tag}] called command: ${m.content.trim()}`
+    )
   }
 
-  if (message.content.startsWith(PREFIX)) {
-    const [CMD, ...args] = message.content
+  if (m.content.startsWith(PREFIX)) {
+    const [CMD, ...args] = m.content
       .trim()
       .substring(PREFIX.length)
       .split(/\s+/)
@@ -40,17 +41,17 @@ client.on('message', (message) => {
 
     switch (CMD) {
       case "server":
-        message.channel
-          .send(`Server name: ${message.guild.name}\nTotal members: ${message.guild.memberCount}\nCurrent owner: ${message.guild.owner}`)
+        m.channel
+          .send(`Server name: ${m.guild.name}\nTotal members: ${m.guild.memberCount}\nCurrent owner: ${m.guild.owner}`)
           .then(console.log(fgYellow, "Command &server completed successfully"))
         break;
       case "user-info":
-        message.channel
-          .send(`Your username: ${message.author.toString()}`)
+        m.channel
+          .send(`Your username: ${m.author.toString()}`)
           .then(console.log(fgYellow, "Command &user-info completed successfully"))
         break;
       default:
-        message.channel.send("Not a valid command!")
+        m.channel.send("Not a valid command!")
     }
   }
 })
