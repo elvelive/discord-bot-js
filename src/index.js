@@ -35,15 +35,17 @@ client.on('message', (m) => {
   }
 
   const args = m.content.slice(prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
+  const commandName = args.shift().toLowerCase()
 
-  if (!client.commands.has(command)) return
+  if (!client.commands.has(commandName)) return
+
+  const command = client.commands.get(commandName)
 
   try {
-    client.commands.get(command).execute(m, args);
+    command.execute(m, args);
   } catch (err) {
     console.log(color.fgRed, `Error executing specified command ${command}, ${err}`)
-    m.reply("There was an error trying to execute that command!");
+    m.reply("There was an error trying to execute that command!")
   }
 })
 
