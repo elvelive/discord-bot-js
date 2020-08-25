@@ -6,14 +6,12 @@ const color = require('./colors')
 const client = new Discord.Client()
 client.commands = new Discord.Collection()
 
-const commands = fs
-  .readdirSync('src/commands')
-  .filter(file => file.endsWith('js'))
-
+const commands = fs.readdirSync('src/commands').filter(file => file.endsWith('js'))
 for (const file of commands) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
+
 
 const PREFIX = prefix;
 
@@ -43,18 +41,10 @@ client.on('message', (m) => {
 
   try {
     client.commands.get(command).execute(m, args);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.log(color.fgRed, `Error executing specified command ${command}, ${err}`)
     m.reply("There was an error trying to execute that command!");
   }
-
-
-
-        // m.channel
-        //   .send(`Server name: ${m.guild.name}\nTotal members: ${m.guild.memberCount}\nCurrent owner: ${m.guild.owner}`)
-        //   .catch((err) => console.log(fgRed, `Error when calling command, ${err}`))
-        //   .then(console.log(fgYellow, "Command &server completed successfully"))
-        // break
 })
 
 client.login(token)
