@@ -9,20 +9,18 @@ const PREFIX = "&";
 
 const fgRed = "\x1b[31m%s\x1b[0m";
 const fgYellow = "\x1b[33m%s\x1b[0m"
+const fgBlue = "\x1b[34m%s\x1b[0m"
 const fgMagenta = "\x1b[35m%s\x1b[0m"
 const fgCyan = "\x1b[36m%s\x1b[0m"
 
 
 client.once('ready', () => {
-  console.log(fgMagenta, `\nLogged in as ${client.user.tag}!\n`)
-  client.user.setStatus('online')
-  client.user.setPresence({
-    game: {
-      name: 'with depression',
-      type: "STREAMING"
-    }
-  })
+  console.log(fgMagenta, `\nLogged in as ${client.user.tag}!`)
+  client.user.setPresence({ activity: { name: 'Hello' }, status: 'online' })
+    .then(console.log(fgBlue, "Bot ready for action\n"))
+    .catch((err) => `An error occured when trying to update bot presence, ${err}`)
 })
+
 
 client.on('message', (m) => {
   if (m.author.bot) return;
@@ -39,6 +37,7 @@ client.on('message', (m) => {
       .trim()
       .substring(PREFIX.length)
       .split(/\s+/)
+      .catch((err) => console.log(`Error when handling or parsing command, ${err}`))
 
     switch (CMD) {
       case "server":
