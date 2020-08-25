@@ -1,18 +1,18 @@
-require('dotenv').config()
-
 const Discord = require('discord.js')
+const config = require('../config/config.json')
 
-const client = new Discord.Client()
 
+const PREFIX = config.prefix;
 
-const PREFIX = "&";
-
+// ANSI colors
 const fgRed = "\x1b[31m%s\x1b[0m";
 const fgYellow = "\x1b[33m%s\x1b[0m"
 const fgBlue = "\x1b[34m%s\x1b[0m"
 const fgMagenta = "\x1b[35m%s\x1b[0m"
 const fgCyan = "\x1b[36m%s\x1b[0m"
 
+
+const client = new Discord.Client();
 
 client.once('ready', () => {
   console.log(fgMagenta, `\nLogged in as ${client.user.tag}!`)
@@ -61,4 +61,4 @@ client.on('message', (m) => {
   }
 })
 
-client.login(process.env.BOT_TOKEN)
+client.login(config.token)
