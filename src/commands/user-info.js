@@ -33,7 +33,6 @@ module.exports = {
     }
     catch (err) {
       console.log(color.fgRed, `Error when calling command, ${err}`)
-      m.reply('Error when calling the command!')
     }
     console.log(color.fgYellow, "Command &user-info completed successfully\n")
   },
