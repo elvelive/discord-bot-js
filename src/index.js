@@ -8,8 +8,8 @@ client.commands = new Discord.Collection()
 
 const commands = fs.readdirSync('src/commands').filter(file => file.endsWith('js'))
 for (const file of commands) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
+  const command = require(`./commands/${file}`)
+  client.commands.set(command.name, command)
 }
 
 
@@ -34,7 +34,7 @@ client.on('message', (m) => {
     console.log(color.fgYellow, `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: User [${m.author.tag}] called command: ${m.content.trim()}`)
   }
 
-  const args = m.content.slice(prefix.length).trim().split(/ +/);
+  const args = m.content.slice(prefix.length).trim().split(/ +/)
   const commandName = args.shift().toLowerCase()
 
   if (!client.commands.has(commandName)) return
@@ -42,7 +42,7 @@ client.on('message', (m) => {
   const command = client.commands.get(commandName)
 
   try {
-    command.execute(m, args);
+    command.execute(m, args)
   } catch (err) {
     console.log(color.fgRed, `Error executing specified command ${command}, ${err}`)
     m.reply("There was an error trying to execute that command!")

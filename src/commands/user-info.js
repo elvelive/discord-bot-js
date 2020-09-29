@@ -1,16 +1,36 @@
 const color = require('../colors')
+const { MessageEmbed } = require('discord.js')
+const { fgCyan } = require('../colors')
 
 module.exports = {
   name: "user-info",
   description: "Displays basic info about the tagged user",
-  execute(m, args) {
-    if (!m.mentions.users.size) return m.reply("you need to tag a user")
+  execute(m) {
+    if (!m.mentions.users.size) return m.reply("you need to tag a valid user")
 
-    const taggedUser = m.mentions.users.first()
+    let taggedUser = m.mentions.users.first()
+    let user = m.guild.member(taggedUser)
 
     try {
-      m.channel
-        .send(`Username: ${taggedUser.username}\nJoined server: ${taggedUser.createdAt.toLocaleDateString()}`)
+      const embed = new MessageEmbed()
+        .setColor('#0099ff')
+
+        .setTitle('**User Info**')
+        .setDescription(this.description.toString())
+        .addField('\u200b', '\u200b')
+
+        .addFields(
+          { name: 'Username: ', value: taggedUser.username, inline: true },
+          { name: 'Tag: ', value: `#${taggedUser.discriminator}`, inline: true }
+        )
+        .addField('\u200b', '\u200b')
+        .addFields(
+          { name: 'Joined Discord: ', value: taggedUser.createdAt.toLocaleDateString(), inline: true },
+          { name: 'Joined this server: ', value: user.joinedAt.toLocaleDateString(), inline: true }
+        )
+
+        .setFooter('Powered by Impulse')
+      m.channel.send(embed)
     }
     catch (err) {
       console.log(color.fgRed, `Error when calling command, ${err}`)
