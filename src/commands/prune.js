@@ -1,4 +1,4 @@
-const color = require('../colors')
+const color = require('../colors.js')
 
 module.exports = {
   name: "prune",

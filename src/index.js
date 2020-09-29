@@ -1,7 +1,7 @@
 const fs = require('fs')
 const Discord = require('discord.js')
 const { prefix, token } = require('../config/config.json')
-const color = require('./colors')
+const color = require('./colors.js')
 
 const PREFIX = prefix
 
