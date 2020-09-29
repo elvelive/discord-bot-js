@@ -3,6 +3,8 @@ const Discord = require('discord.js')
 const { prefix, token } = require('../config/config.json')
 const color = require('./colors')
 
+const PREFIX = prefix
+
 const client = new Discord.Client()
 client.commands = new Discord.Collection()
 
@@ -13,11 +15,8 @@ for (const file of commands) {
 }
 
 
-const PREFIX = prefix;
-
-
 client.once('ready', () => {
-  console.log(color.fgMagenta, `\nLogged in as ${client.user.tag}!`);
+  console.log(color.fgMagenta, `\nLogged in as ${client.user.tag}!`)
   client.user.setPresence({ activity: { name: 'Hello' }, status: 'online' })
     .then(console.log(color.fgBlue, "Bot ready for action\n"))
     .catch((err) => `An error occured when trying to update bot presence, ${err}`)
@@ -45,7 +44,7 @@ client.on('message', (m) => {
     command.execute(m, args)
   } catch (err) {
     console.log(color.fgRed, `Error executing specified command ${command}, ${err}`)
-    m.reply("There was an error trying to execute that command!")
+    m.reply('There was an error trying to execute that command!')
   }
 })
 
