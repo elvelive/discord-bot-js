@@ -9,7 +9,7 @@ module.exports = {
       const embed = new MessageEmbed()
         .setColor('#0099ff')
 
-        .setTitle('**User Info**')
+        .setTitle('**Server Info**')
         .setDescription(this.description.toString())
         .addField('\u200b', '\u200b')
 
