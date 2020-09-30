@@ -26,11 +26,12 @@ client.once('ready', () => {
 client.on('message', (m) => {
   if (m.author.bot) return
 
-  if (!m.author.bot && !m.content.startsWith(PREFIX)) {
-    console.log(color.fgCyan, `User [${m.author.tag}] sent message: ${m.content}`)
-  } else if (!m.author.bot && m.content.startsWith(PREFIX)) {
-    let date = new Date()
-    console.log(color.fgYellow, `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: User [${m.author.tag}] called command: ${m.content.trim()}`)
+  let date = new Date()
+
+  if (!m.content.startsWith(PREFIX)) {
+    console.log(color.fgCyan, `${date.toLocaleDateString()} ${date.toLocaleTimeString()} User [${m.author.tag}] sent message: ${m.content}`)
+  } else if (m.content.startsWith(PREFIX)) {
+    console.log(color.fgYellow, `${date.toLocaleDateString()} ${date.toLocaleTimeString()} User [${m.author.tag}] called command: ${m.content.trim()}`)
   }
 
   const args = m.content.slice(prefix.length).trim().split(/ +/)
@@ -46,6 +47,19 @@ client.on('message', (m) => {
     console.log(color.fgRed, `Error executing specified command ${command}, ${err}`)
     m.reply('There was an error trying to execute that command!')
   }
+})
+
+
+client.on('rateLimit', (info) =>  {
+    console.log(color.fgRed,
+      `Rate limit hit ${
+        info.timeDifference
+          ? info.timeDifference
+          : info.timeout
+          ? info.timeout
+          : "Unknown timeout "
+      }`
+    )
 })
 
 client.login(token)
