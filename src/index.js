@@ -16,9 +16,8 @@ for (const file of commands) {
 
 
 client.once('ready', () => {
-  let serverAmount = client.guilds.cache.size
   console.log(color.fgMagenta, `\nLogged in as ${client.user.tag}!`)
-  client.user.setPresence({ activity: { name: `&help | Currently serving ${serverAmount} servers` }, status: 'online' })
+  client.user.setPresence({ activity: { name: `&help | Currently serving ${client.guilds.cache.size} servers` }, status: 'online' })
     .then(console.log(color.fgBlue, "Bot ready for action\n"))
     .catch((err) => `An error occured when trying to update bot presence, ${err}`)
 })
