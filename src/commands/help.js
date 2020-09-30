@@ -1,5 +1,3 @@
-const { MessageEmbed } = require('discord.js')
-
 const color = require('../colors')
 
 module.exports = {
@@ -50,7 +48,8 @@ module.exports = {
       };
       m.channel.send({ embed: helpEmbed })
     } catch (err) {
-      console.log(color.fgRed,)
+      console.log(color.fgRed, `Error when calling command, ${err}`)
     }
+    console.log(color.fgYellow, "Command &server completed successfully\n")
   }
 }

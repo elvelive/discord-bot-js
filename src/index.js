@@ -63,4 +63,8 @@ client.on('rateLimit', (info) =>  {
     )
 })
 
+client.on('shardError', (err) => {
+  console.error(color.fgRed, "A websocket connection encountered an error:", err)
+})
+
 client.login(token)
