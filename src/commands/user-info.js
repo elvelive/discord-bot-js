@@ -1,4 +1,4 @@
-const color = require('../colors.js')
+const color = require('../colors')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
@@ -35,5 +35,5 @@ module.exports = {
       console.log(color.fgRed, `Error when calling command, ${err}`)
     }
     console.log(color.fgYellow, "Command &user-info completed successfully\n")
-  },
+  }
 }

@@ -1,4 +1,4 @@
-const color = require('../colors.js')
+const color = require('../colors')
 
 module.exports = {
   name: "prune",
@@ -22,10 +22,10 @@ module.exports = {
             'There was an error trying to prune messages in this channel!'
           )
         })
-    } catch (error) {
+    } catch (err) {
       console.log(color.fgRed, `Error when calling command, ${err}`)
     }
     console.log(color.fgYellow, `Command &${this.name} completed successfully\n`)
     m.reply(`Successfully removed ${amount} messages!`)
-  },
+  }
 }
