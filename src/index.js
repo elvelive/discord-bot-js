@@ -18,9 +18,10 @@ for (const file of commands) {
 client.once('ready', () => {
   console.log(color.fgMagenta, `\nLogged in as ${client.user.tag}!`)
   client.user.setPresence({ activity: { name: `&help | Currently serving ${client.guilds.cache.size} servers` }, status: 'online' })
-    .then(console.log(color.fgBlue, "Bot ready for action\n"))
-    .catch((err) => `An error occured when trying to update bot presence, ${err}`)
+    .then(console.log(color.fgBlue, 'Bot ready for action\n'))
+    .catch((err) => console.error(color.fgRed, `An error occured when trying to update bot presence, ${err}`))
 })
+  
 
 
 client.on('message', (m) => {
@@ -37,33 +38,37 @@ client.on('message', (m) => {
   const args = m.content.slice(prefix.length).trim().split(/ +/)
   const commandName = args.shift().toLowerCase()
 
-  if (!client.commands.has(commandName)) return
+  if (!client.commands.has(commandName)) {
+    console.error(color.fgRed, `Command &${commandName} not found!\n`)
+    m.reply('command not found, are you sure you spelt it right and didn\'t miss any args?')
+    return
+  }
 
   const command = client.commands.get(commandName)
-
+  
   try {
     command.execute(m, args)
   } catch (err) {
-    console.log(color.fgRed, `Error executing specified command ${command}, ${err}`)
+    console.error(color.fgRed, `Error executing specified command ${command}, ${err}`)
     m.reply('There was an error trying to execute that command!')
   }
 })
 
 
 client.on('rateLimit', (info) =>  {
-    console.log(color.fgRed,
+    console.error(color.fgRed,
       `Rate limit hit ${
         info.timeDifference
           ? info.timeDifference
           : info.timeout
           ? info.timeout
-          : "Unknown timeout "
+          : 'Unknown timeout'
       }`
     )
 })
 
 client.on('shardError', (err) => {
-  console.error(color.fgRed, "A websocket connection encountered an error:", err)
+  console.error(color.fgRed, 'A websocket connection encountered an error:', err)
 })
 
 client.login(token)
