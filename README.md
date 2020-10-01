@@ -19,7 +19,7 @@ I simple bot made in Node.js for doing various basic administrative tasks on a s
 ```
 6. Run npm start in root folder and your bot should be up and running in a few seconds.
 
-Your folder structure should look something like this when you are done:
+Your folder structure should look something like this when you are done:<br>
 📦discord-bot-nodejs<br>
 ┣ 📂config<br>
 ┃ ┗ 📜config.json<br>
