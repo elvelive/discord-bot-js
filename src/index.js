@@ -63,7 +63,7 @@ client.on('guildMemberAdd', member => {
       text: 'Powered by Impulse',
     },
   }
-  member.guild.channels.cache.find(i => i.name === 'general').send({ embed: welcomeEmbed })
+  member.guild.channels.cache.find(channel => channel.name === 'general').send({ embed: welcomeEmbed })
 })
 client.on('guildMemberRemove', member => {
   const goodbyeEmbed = {
@@ -74,7 +74,7 @@ client.on('guildMemberRemove', member => {
       text: 'Powered by Impulse',
     },
   }
-  member.guild.channels.cache.find(i => i.name === 'general').send({ embed: goodbyeEmbed })
+  member.guild.channels.cache.find(channel => channel.name === 'general').send({ embed: goodbyeEmbed })
 })
 
 
