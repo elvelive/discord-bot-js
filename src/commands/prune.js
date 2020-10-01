@@ -16,14 +16,9 @@ module.exports = {
 
     try {
       m.channel.bulkDelete(amount, true)
-        .catch((err) => {
-          console.error(err)
-          m.channel.send(
-            'There was an error trying to prune messages in this channel!'
-          )
-        })
     } catch (err) {
-      console.log(color.fgRed, `Error when calling command, ${err}`)
+      console.error(color.fgRed, `Error when calling command, ${err}`)
+      m.channel.send('There was an error trying to prune messages in this channel!')
     }
     console.log(color.fgYellow, `Command &${this.name} completed successfully\n`)
     m.reply(`Successfully removed ${amount} messages!`)

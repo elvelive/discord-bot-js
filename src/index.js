@@ -21,7 +21,6 @@ client.once('ready', () => {
     .then(console.log(color.fgBlue, 'Bot ready for action\n'))
     .catch((err) => console.error(color.fgRed, `An error occured when trying to update bot presence, ${err}`))
 })
-  
 
 
 client.on('message', (m) => {
@@ -52,6 +51,30 @@ client.on('message', (m) => {
     console.error(color.fgRed, `Error executing specified command ${command}, ${err}`)
     m.reply('There was an error trying to execute that command!')
   }
+})
+
+
+client.on('guildMemberAdd', member => {
+  const welcomeEmbed = {
+    color: '0099ff',
+    title: `**${member.user.username} has joined the server**`,
+    description: 'Be nice and say hi!',
+    footer: {
+      text: 'Powered by Impulse',
+    },
+  }
+  member.guild.channels.cache.find(i => i.name === 'general').send({ embed: welcomeEmbed })
+})
+client.on('guildMemberRemove', member => {
+  const goodbyeEmbed = {
+    color: '0099ff',
+    title: `**${member.user.username} has unfortunately left us**`,
+    description: 'Good luck in the future!',
+    footer: {
+      text: 'Powered by Impulse',
+    },
+  }
+  member.guild.channels.cache.find(i => i.name === 'general').send({ embed: goodbyeEmbed })
 })
 
 

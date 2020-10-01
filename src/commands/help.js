@@ -34,22 +34,17 @@ module.exports = {
             name: "User info [&user-info <@user>]",
             value: "Displays info about a tagged user",
             inline: false,
-          },
-
-          /*{
-            name: "",
-            value: "",
-            inline: false,
-          },*/
+          }
         ],
         footer: {
-          text: "Powered by Impulse",
+          icon_url: m.author.user.id.avatarURL,
+          text: 'Powered by Impulse',
         },
-      };
+      }
       m.channel.send({ embed: helpEmbed })
     } catch (err) {
-      console.log(color.fgRed, `Error when calling command, ${err}`)
+      console.error(color.fgRed, `Error when calling command, ${err}`)
     }
-    console.log(color.fgYellow, "Command &server completed successfully\n")
+    console.log(color.fgYellow, 'Command &server completed successfully\n')
   }
 }
