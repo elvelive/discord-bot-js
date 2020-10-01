@@ -17,7 +17,8 @@ for (const file of commands) {
 
 client.once('ready', () => {
   console.log(color.fgMagenta, `\nLogged in as ${client.user.tag}!`)
-  client.user.setPresence({ activity: { name: `&help | Currently serving ${client.guilds.cache.size} servers` }, status: 'online' })
+  client.user
+    .setPresence({ activity: { name: `&help | Currently serving ${client.guilds.cache.size} servers` }, status: 'online' })
     .then(console.log(color.fgBlue, 'Bot ready for action\n'))
     .catch((err) => console.error(color.fgRed, `An error occured when trying to update bot presence, ${err}`))
 })
@@ -54,7 +55,7 @@ client.on('message', (m) => {
 })
 
 
-client.on('guildMemberAdd', member => {
+client.on('guildMemberAdd', (member) => {
   const welcomeEmbed = {
     color: '0099ff',
     title: `**${member.user.username} has joined the server**`,
@@ -65,7 +66,7 @@ client.on('guildMemberAdd', member => {
   }
   member.guild.channels.cache.find(channel => channel.name === 'general').send({ embed: welcomeEmbed })
 })
-client.on('guildMemberRemove', member => {
+client.on('guildMemberRemove', (member) => {
   const goodbyeEmbed = {
     color: '0099ff',
     title: `**${member.user.username} has unfortunately left us**`,
@@ -74,21 +75,11 @@ client.on('guildMemberRemove', member => {
       text: 'Powered by Impulse',
     },
   }
-  member.guild.channels.cache.find(channel => channel.name === 'general').send({ embed: goodbyeEmbed })
+  member.guild.channels.cache
+    .find((channel) => channel.name === 'general')
+    .send({ embed: goodbyeEmbed })
 })
 
-
-client.on('rateLimit', (info) =>  {
-    console.error(color.fgRed,
-      `Rate limit hit ${
-        info.timeDifference
-          ? info.timeDifference
-          : info.timeout
-          ? info.timeout
-          : 'Unknown timeout'
-      }`
-    )
-})
 
 client.on('shardError', (err) => {
   console.error(color.fgRed, 'A websocket connection encountered an error:', err)
