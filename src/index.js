@@ -40,7 +40,7 @@ client.on('message', (m) => {
 
   if (!client.commands.has(commandName)) {
     console.error(color.fgRed, `Command &${commandName} not found!\n`)
-    m.reply('command not found, are you sure you spelt it right and didn\'t miss any args?')
+    m.reply('command not found. Are you sure you spelt it right and didn\'t miss any arguments?')
     return
   }
 
