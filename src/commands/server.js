@@ -48,7 +48,7 @@ module.exports = {
 
       m.channel.send({ embed: serverEmbed })
     } catch (err) {
-      console.err(color.fgRed, `Error when calling command, ${err}`)
+      console.error(color.fgRed, `Error when calling command, ${err}`)
     }
     console.log(color.fgYellow, 'Command &server completed successfully\n')
   },
