@@ -3,6 +3,7 @@ const color = require('../colors')
 module.exports = {
   name: 'server',
   description: 'Displays info about the server',
+  args: false,
   execute(m) {
     try {
       const serverEmbed = {

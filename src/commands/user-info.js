@@ -3,6 +3,7 @@ const color = require('../colors')
 module.exports = {
   name: 'user-info',
   description: 'Displays basic info about the tagged user',
+  args: true,
   execute(m) {
     if (!m.mentions.users.size) return m.reply('you need to tag a valid user')
 
