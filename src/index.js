@@ -46,9 +46,9 @@ client.on('message', (m) => {
 
   const command = client.commands.get(commandName)
   
-  if (command.args && !args.length) {
-    return m.reply(`You need to provide arguments for this command!`)
-  }
+  if (command.guildOnly && m.channel.type === 'dm') return m.reply("I can't execute that command inside DMs!")
+
+  if (command.args && !args.length) return m.reply(`You need to provide arguments for this command!`)
 
   try {
     command.execute(m, args)

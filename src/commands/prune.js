@@ -4,6 +4,7 @@ module.exports = {
   name: 'prune',
   description: 'Clear messages in bulk from the channel',
   args: true,
+  guildOnly: true,
   execute(m, args) {
     const amount = parseInt(args[0]) + 0
 
@@ -17,9 +18,14 @@ module.exports = {
       m.channel.bulkDelete(amount, true)
     } catch (err) {
       console.error(color.fgRed, `Error when calling command, ${err}`)
-      m.channel.send('There was an error trying to prune messages in this channel!')
+      m.channel.send(
+        'There was an error trying to prune messages in this channel!'
+      )
     }
-    console.log(color.fgYellow, `Command &${this.name} completed successfully\n`)
+    console.log(
+      color.fgYellow,
+      `Command &${this.name} completed successfully\n`
+    )
     m.reply(`Successfully removed ${amount} messages!`)
   },
 }

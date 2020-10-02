@@ -4,6 +4,7 @@ module.exports = {
   name: 'server',
   description: 'Displays info about the server',
   args: false,
+  guildOnly: true,
   execute(m) {
     try {
       const serverEmbed = {

@@ -4,6 +4,7 @@ module.exports = {
   name: 'help',
   description: 'All commands for the bot and general help',
   args: false,
+  guildOnly: false,
   execute(m) {
     try {
       const helpEmbed = {
@@ -28,7 +29,8 @@ module.exports = {
           },
           {
             name: 'Server [&server]',
-            value: 'Replies with details about the server that the bot is running on',
+            value:
+              'Replies with details about the server that the bot is running on',
             inline: false,
           },
           {
