@@ -1,9 +1,8 @@
 const color = require('../colors')
-const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-  name: "server",
-  description: "Displays info about the server",
+  name: 'server',
+  description: 'Displays info about the server',
   execute(m) {
     try {
       const serverEmbed = {
@@ -44,7 +43,7 @@ module.exports = {
         ],
         footer: {
           name: 'Powered by Impulse',
-        }
+        },
       }
 
       m.channel.send({ embed: serverEmbed })
@@ -52,5 +51,5 @@ module.exports = {
       console.err(color.fgRed, `Error when calling command, ${err}`)
     }
     console.log(color.fgYellow, 'Command &server completed successfully\n')
-  }
+  },
 }
