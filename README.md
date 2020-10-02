@@ -1,5 +1,5 @@
 # Impulse discord bot
-A basic bot made in Node.js for doing various basic administrative tasks on a server.<br>
+A basic bot made in JavaScript for doing various basic administrative tasks on a server.<br>
 *This is supposed to be seen as a template and starter project, not a fully fledged moderation bot.*
 
 ## Installation and setup instructions
