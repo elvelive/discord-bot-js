@@ -1,10 +1,9 @@
 const color = require('../colors')
 
 module.exports = {
-  name: "prune",
-  description: "Clear messages from the channel",
+  name: 'prune',
+  description: 'Clear messages in bulk from the channel',
   args: true,
-  usage: "<number greater than 0, less than 100>",
   execute(m, args) {
     const amount = parseInt(args[0]) + 0
 
@@ -22,5 +21,5 @@ module.exports = {
     }
     console.log(color.fgYellow, `Command &${this.name} completed successfully\n`)
     m.reply(`Successfully removed ${amount} messages!`)
-  }
+  },
 }
