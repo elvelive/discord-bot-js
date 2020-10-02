@@ -3,41 +3,41 @@ const color = require('../colors')
 module.exports = {
   name: 'help',
   description: 'All commands for the bot and general help',
+  args: false,
   execute(m) {
     try {
       const helpEmbed = {
-        color: "0099ff",
-        title: "**Help**",
+        color: '0099ff',
+        title: '**Help**',
         description: this.description.toString(),
         fields: [
           {
-            name: "\u200b",
-            value: "\u200b",
+            name: '\u200b',
+            value: '\u200b',
             inline: false,
           },
           {
-            name: "Help [&help]",
-            value: "This command that you are running right now :)",
+            name: 'Help [&help]',
+            value: 'This command that you are running right now :)',
             inline: false,
           },
           {
-            name: "Prune [&prune <1-99>]",
-            value: "Clears between 1 and 99 messages in a channel",
+            name: 'Prune [&prune <1-99>]',
+            value: 'Clears between 1 and 99 messages in a channel',
             inline: false,
           },
           {
-            name: "Server [&server]",
-            value: "Replies with details about the server that the bot is running on",
+            name: 'Server [&server]',
+            value: 'Replies with details about the server that the bot is running on',
             inline: false,
           },
           {
-            name: "User info [&user-info <@user>]",
-            value: "Displays info about a tagged user",
+            name: 'User info [&user-info <@user>]',
+            value: 'Displays info about a tagged user',
             inline: false,
-          }
+          },
         ],
         footer: {
-          icon_url: m.author.user.id.avatarURL,
           text: 'Powered by Impulse',
         },
       }
@@ -46,5 +46,5 @@ module.exports = {
       console.error(color.fgRed, `Error when calling command, ${err}`)
     }
     console.log(color.fgYellow, 'Command &server completed successfully\n')
-  }
+  },
 }

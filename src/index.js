@@ -46,6 +46,10 @@ client.on('message', (m) => {
 
   const command = client.commands.get(commandName)
   
+  if (command.args && !args.length) {
+    return m.reply(`You need to provide arguments for this command!`)
+  }
+
   try {
     command.execute(m, args)
   } catch (err) {
