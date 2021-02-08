@@ -8,7 +8,7 @@ A basic bot made in JavaScript for doing various basic administrative tasks on a
 
 ### Installation
 1. Clone this repo.
-2. Run `npm init` in root folder to download npm packages.
+2. Run `npm i`, `(npm install)`, in root folder to download npm packages.
 3. Create a `config` folder in the root folder and in it create a `config.json` file.
 4. In this file, create a object with the keys `prefix` and `token`.
 5. Fill in your desired prefix and your bots token.
@@ -18,7 +18,7 @@ A basic bot made in JavaScript for doing various basic administrative tasks on a
   "token": "bot token here"
 }
 ```
-6. Run npm start in root folder and your bot should be up and running in a few seconds.
+6. Run `npm start` in root folder and your bot should be up and running in a few seconds.
 
 Your folder structure should look something like this when you are done:<br>
 📦discord-bot-nodejs<br>
